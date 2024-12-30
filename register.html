@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Firebase Registration</title>
+    <link rel="stylesheet" href="register.css">
+</head>
+<body>
+    <div class="background"></div> <!-- Gradient background -->
+
+    <header class="header-container">
+        <img src="C:\Users\Devisha\OneDrive\Desktop\iitd_website\iitdlogo.png" alt="IIT Delhi Logo" class="logo">
+        <h1>Indian Institute of Technology Delhi</h1>
+    </header>
+    <div class="register-container">
+        <h1>REGISTER</h1>
+    <form id="registerForm">
+        <input type="email" id="email" placeholder="Enter Email" required>
+        <input type="password" id="password" placeholder="Enter Password" required>
+        <button type="submit" id="submit">Register</button>
+    </form>
+    <p>
+        Already have an account? <a href="login.html">Register</a>
+    </p>
+    </div>
+
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js";
+        import { getDatabase, ref, set, get, child } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-database.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-analytics.js";
+
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyBh1HAklFoKOno0H4faO-zJvfB1RLq7isA",
+            authDomain: "iitd-website-639f7.firebaseapp.com",
+            databaseURL: "https://iitd-website-639f7-default-rtdb.firebaseio.com",
+            projectId: "iitd-website-639f7",
+            storageBucket: "iitd-website-639f7.appspot.com",
+            messagingSenderId: "377632132224",
+            appId: "1:377632132224:web:50ced4c8d9517f7e472a65",
+            measurementId: "G-XDSK7T01YM"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+        const database = getDatabase(app);
+
+        // Ensure the DOM is fully loaded before adding event listeners
+        document.addEventListener("DOMContentLoaded", () => {
+            const submit = document.getElementById('submit');
+            const form = document.getElementById('registerForm');
+
+            submit.addEventListener("click", async function (event) {
+                event.preventDefault();
+
+                const email = document.getElementById('email').value;
+                const password = document.getElementById('password').value;
+
+                if (email && password) {
+                    const emailKey = email.replace('.', '_'); // Replace dots for valid Firebase keys
+                    const userRef = ref(database, 'users/' + emailKey);
+
+                    try {
+                        // Check if the user already exists
+                        const snapshot = await get(child(ref(database), 'users/' + emailKey));
+                        if (snapshot.exists()) {
+                            alert("Email is already registered.");
+                        } else {
+                            // Save to Firebase
+                            await set(userRef, {
+                                email: email,
+                                password: password
+                            });
+                            alert("Registration successful!");
+                            form.reset(); // Clear form inputs
+                            window.location.href = "selectone.html"; // Redirect to next page
+                        }
+                    } catch (error) {
+                        console.error("Error checking or saving data:", error);
+                        alert("An error occurred: " + error.message);
+                    }
+                } else {
+                    alert("Please fill out all fields.");
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>

@@ -1,6 +1,5 @@
 body {
-    background: url("C:/Users/Devisha/OneDrive/Desktop/iitd_website/background.jpg") no-repeat center center fixed;
-    background-size: 1500px, 1500px;
+    
     background-attachment: fixed; /* Keeps the image fixed during scrolling */
     margin: 0;
     font-family: Arial, sans-serif;
@@ -86,4 +85,5 @@ a {
     display: block;
     text-align: center;
   }
+  
   

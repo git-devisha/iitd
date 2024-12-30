@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>Prototype Types</title>
-    <link rel="stylesheet" href="kindofprototype.css">
+    <link rel="stylesheet" href="selectone.css">
 </head>
 <body>
     <div class="background"></div>
@@ -10,6 +10,10 @@
     <img src="C:\Users\Devisha\OneDrive\Desktop\iitd_website\iitdlogo.png" alt="IIT Delhi Logo" class="logo">
     <h1>Indian Institute of Technology Delhi</h1>
 </header>
+<div>
+    <button class="back-button" onclick="goBack()">⬅ Go Back</button>
+</div>
+
 <div class="container">
     <h1>SELECT ANY ONE</h1>
     <button><a href="kindofprototype.html">Kind of Prototype</a></button>
@@ -20,4 +24,9 @@
 
 </div>
 </body>
+<script>
+    function goBack() {
+        window.history.back();
+    }
+</script>
 </html>
